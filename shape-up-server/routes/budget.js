@@ -9,12 +9,4 @@ const { Budget } = require('../models/Budget');
 
 // 예산서 삭제: delete
 
-// 예산서 분류1 - 필수 비용: post
-
-// 예산서 분류1 - 예상치 못한 지출: post
-
-// 예산서 분류2 - 카테고리: post
-
-// 예산서 분류2 - 기간: post
-
 module.exports = router;
