@@ -5,18 +5,19 @@ const petSchema = mongoose.Schema({
         type: String,
         maxlength: 50
     },
-    info:{
-        breed: String,
-        group: String,
-        coat: String,
-        size: String,
-        height: String,
-        weight: String,
-        body: String, 
-        character: String,
+    sex: Boolean, // 성별
+    height: {
+        type: Number
+    },
+    weight: {
+        type: Number
+    },
+    breed:{
+        type: Schema.Types.ObjectId, ref: 'Dog'
     },
     image: String, // 이미지
-    sex: Boolean, // 성별
+
+    // 상태
     
 })
 
