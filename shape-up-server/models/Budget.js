@@ -1,7 +1,11 @@
 const mongoose = require('mongoose');
 
 const budgetSchema = mongoose.Schema({ 
-    itemname: { // 이름
+    writer: {  // 작성한 가족
+        type: Schema.Types.ObjectId,
+        ref: 'Family'
+    },
+    itemname: { // 지출내역
         type: String 
     },
     price: Int, // 비용
