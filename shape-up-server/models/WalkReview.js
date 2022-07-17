@@ -1,7 +1,10 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const WalkReviewSchema = mongoose.Schema({ // 산책 리뷰마다 familyid 연결해줘야겠지
+const WalkReviewSchema = mongoose.Schema({
+    familyID: {  // 가족 ID
+        type: Schema.Types.ObjectId, ref: 'Family'
+    },
     like: { // 추천, 비추천
         type: Boolean
     },

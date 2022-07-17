@@ -4,7 +4,7 @@ const saltRounds = 10;
 const jwt = require('jsonwebtoken');
 
 const userSchema = mongoose.Schema({
-    name: { // 이름
+    name: { // 이름(닉네임)
         type: String,
         maxlength: 50
     },
@@ -19,7 +19,7 @@ const userSchema = mongoose.Schema({
     },
     image: String, // 프로필사진
     // sns 계정 넣는 방법?
-    Tested: {
+    tested: {  // 성향 점검 테스트 수행 여부
         type: Boolean,
         default: false
     },
@@ -33,9 +33,6 @@ const userSchema = mongoose.Schema({
     propensityResult:{ // 성향 점검 결과
         type: String
     },
-    shareCode:{ // 공유 코드
-        type: String
-    },
     token: {
         type: String
     },
@@ -44,7 +41,7 @@ const userSchema = mongoose.Schema({
     },
 })
 
-// 10강
+
 userSchema.pre('save', function( next ) {
     var user = this; 
 

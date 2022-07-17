@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 const petSchema = mongoose.Schema({ 
     name: { // 이름
@@ -15,7 +16,6 @@ const petSchema = mongoose.Schema({
     breed:{
         type: Schema.Types.ObjectId, ref: 'Dog'
     },
-    image: String, // 이미지
 
     // 상태
     
