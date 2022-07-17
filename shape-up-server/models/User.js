@@ -4,36 +4,49 @@ const saltRounds = 10;
 const jwt = require('jsonwebtoken');
 
 const userSchema = mongoose.Schema({
-    name: {
+    name: { // 이름
         type: String,
         maxlength: 50
     },
-    email: {
+    email: { // 이메일
         type: String,
         trim: true,
         unique: 1
     },
-    password: {
+    password: { // 비밀번호
         type: String,
         minlength: 5
     },
-    image: String,
+    image: String, // 프로필사진
     // sns 계정 넣는 방법?
     Tested: {
         type: Boolean,
         default: false
+    },
+    role:{ // 역할
+        type: String,
+        // 그룹원 or 그룹장
+    },
+    acheivement:{ 
+        type: String
+    },
+    propensityResult:{ // 성향 점검 결과
+        type: String
+    },
+    shareCode:{ // 공유 코드
+        type: String
     },
     token: {
         type: String
     },
     tokenExp: {
         type: Number
-    }
+    },
 })
 
 // 10강
 userSchema.pre('save', function( next ) {
-    var user = this;
+    var user = this; 
 
     // 비밀번호가 변경되었을 때에만 동작하도록 (다른 필드 X)
     if (user.isModified('password')) { 
