@@ -1,15 +1,17 @@
 const express = require('express');
 const { Family } = require('../models/Family');
+const { Pet } = require('../models/Pet');
 const router = express.Router();
 
 // 강아지 정보 불러오기(DB): post
 router.post("/getPet", (req, res) => {
-    Family.find({ _id: req.body._id })
-      .populate("pet")
+    Family
+    .find({},{_id:0, userGroup:0})
+    .populate("pet")
       .exec((err, family) => {
         if (err) return res.status(400).send(err);
-        return res.status(200).send({ success: true, family });
-      });
+        res.status(200).send({ success: true, family });
+      }); 
 });
   
 

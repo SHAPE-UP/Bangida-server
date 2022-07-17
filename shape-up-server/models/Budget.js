@@ -8,13 +8,13 @@ const budgetSchema = mongoose.Schema({
     itemname: { // 지출내역
         type: String 
     },
-    price: Int, // 비용
+    price: Number, // 비용
     category: { // 분류
-        type: Int,
+        type: Number,
         default: 0
     },
     term: { // 구매주기
-        type: Int,
+        type: Number,
         default: 7
     },
     remarks:{ // 비고
@@ -22,6 +22,6 @@ const budgetSchema = mongoose.Schema({
     }
 })
 
-const Budget = mongoose.model('User', budgetSchema)
+const Budget = mongoose.model('Budget', budgetSchema)
 
 module.exports = { Budget }
