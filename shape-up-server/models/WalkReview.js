@@ -15,13 +15,10 @@ const WalkReviewSchema = mongoose.Schema({ // 산책 리뷰마다 familyid 연�
       type: Number
     },
     picture:{ // 사진
-      type: Image
+      //type: Image
     },
     date:{ // 기록 날짜
       type: Date
-    },
-    comment:{ // 댓글
-      type: String
     },
     walkingId:{ // 산책로 id
       type: Number

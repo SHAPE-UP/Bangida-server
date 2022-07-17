@@ -7,7 +7,7 @@ const todoSchema = mongoose.Schema({
     },
     todowork: { // todo 내용
         type: String,
-        default: todoref.string
+        //default: todo.ref.string
     },
     todorole: [{ // FK  //Q. 이거 왜 배열로 했나요, 아 여러 명이 담당할 수도 있어서
         //type: Array  // User의 id 배열
