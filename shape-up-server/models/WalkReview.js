@@ -12,21 +12,21 @@ const WalkReviewSchema = mongoose.Schema({
         //type 뭘로해..? Image?
     },
     time: { // 소요시간
-        type: Boolean
+        //type: TimeRanges
     },
     speed:{ // 속도
+      type: Number
+    },
+    distance:{// 거리
       type: Number
     },
     picture:{ // 사진
       //type: Image
     },
-    date:{ // 기록 날짜
-      type: Date
-    },
-    walkingId:{ // 산책로 id
-      type: Number
+    content: {
+      type: String
     }
-})
+}, {timestamps: true})
 
 const WalkReview = mongoose.model('WalkReview', WalkReviewSchema)
 
