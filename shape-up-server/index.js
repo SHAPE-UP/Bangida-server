@@ -31,8 +31,8 @@ app.use('/api/users', require('./routes/users'));
 app.use('/api/family', require('./routes/family'));
 app.use('/api/pet', require('./routes/pet'));
 app.use('/api/budget', require('./routes/budget'));
-app.use('/api/todo', require('./routes/todo'));
 app.use('/api/walkReview', require('./routes/walkReview'));
+app.use('/api/comment', require('./routes/comment'));
 //app.use('/api/simulation', require('./routes/simulation'));
 
 app.listen(port, () => { // 포트(port)에서 실행
