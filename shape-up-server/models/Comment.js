@@ -5,7 +5,7 @@ const commentSchema = mongoose.Schema({
     walkReviewID:{ // 산책리뷰 ID
         type: Schema.Types.ObjectId, ref: 'WalkReview'
     },
-    writer: { // todo 내용
+    writer: { // 작성한 유저
         type: Schema.Types.ObjectId, ref: 'User'
     },
     content: { // 작성 내용

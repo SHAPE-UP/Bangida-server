@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const budgetSchema = mongoose.Schema({ 
-    writer: {  // 작성한 가족
+    familyID: {  // 작성한 가족
         type: Schema.Types.ObjectId,
         ref: 'Family'
     },

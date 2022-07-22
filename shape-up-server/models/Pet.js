@@ -16,8 +16,6 @@ const petSchema = mongoose.Schema({
     breed:{
         type: Schema.Types.ObjectId, ref: 'Dog'
     },
-    image: String, // 이미지
-
     // 상태
     
 })
