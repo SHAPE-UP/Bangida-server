@@ -19,7 +19,8 @@ router.post("/registerBudget", (req, res) => {
     let budgetItem = req.body.item
     console.log(budgetItem);
     Budget.findOneAndUpdate({ familyID: req.body.family }, {$push: {list: budgetItem}})
-    .exec( 
+    let newbudget = new Budget(req.body)
+    newbudget.save(
         (err, budgetInfo) => {
             if(err) return res.status(400).json({ success: false, err })
             return res.status(200).json({
@@ -33,8 +34,8 @@ router.post("/registerBudget", (req, res) => {
 // 예산서 삭제: delete
 
 router.delete("/deleteBudget", (req,res)=>{
-
     Budget.findOneAndDelete({ familyID: req.body.family })
+    Budget.deleteOne(req.body)
     .exec( 
         (err, budgetInfo) => {
             if(err) return res.status(400).json({ success: false, err })

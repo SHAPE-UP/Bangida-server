@@ -4,10 +4,12 @@ const Schema = mongoose.Schema;
 const budgetSchema = mongoose.Schema({ 
     familyID: {  // 작성한 가족
         type: Schema.Types.ObjectId,
-        ref: 'Family'
+        ref: 'Family',
+        require: true
     },
     itemname: { // 지출내역
-        type: String 
+        type: String,
+        require: true
     },
     price: Number, // 비용
     category: { // 분류
