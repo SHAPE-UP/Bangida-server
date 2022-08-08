@@ -8,7 +8,7 @@ const WalkReviewSchema = mongoose.Schema({
     like: { // 추천, 비추천
         type: Boolean
     },
-    recode: { // 경로 기록
+    record: { // 경로 기록
         //type 뭘로해..? Image?
     },
     time: { // 소요시간
