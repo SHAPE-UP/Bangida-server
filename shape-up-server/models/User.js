@@ -17,6 +17,9 @@ const userSchema = mongoose.Schema({
         type: String,
         minlength: 5
     },
+    familyCode: {
+        type: String
+    },
     image: String, // 프로필사진
     // sns 계정 넣는 방법?
     tested: {  // 성향 점검 테스트 수행 여부

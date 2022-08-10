@@ -1,8 +1,52 @@
 const express = require('express');
 const router = express.Router();
 const { User } = require('../models/User');
-
+const { Family } = require('../models/Family')
 const { auth } = require("../middleware/auth");
+
+// 가족 그룹 생성
+// req: user _id
+router.post("/addFamily", (req, res)=>{
+  // 요청: userID
+  const family = new Family()
+
+  // 랜덤 코드 생성하기
+  const randomString = Math.random().toString(36).slice(2)
+  // 값 넣기
+  family.familyCode = randomString
+  family.userGroup.push(req.body._id)
+
+  // data 등록
+  family.save((err, familyInfo) => {
+    if(err) return res.json({success: false, err})
+    return res.status(200).json({
+      success: true
+    })
+  })
+
+})
+
+
+// 가족 그룹 참여
+// req: user _id, familyCode
+router.post("/joinFamily", (req, res) => {
+  let familyCode = req.body.familyCode
+  console.log(familyCode)
+  console.log(req.body._id)
+  
+  Family.findOneAndUpdate({familyCode: familyCode}, {$addToSet: {userGroup: req.body._id}})
+    .exec((err, family) => {
+      if(err) 
+        return res.status(400).json({success: false, family})
+      if(family) // 유효한 공유 코드인지 확인
+        return res.status(200).json({success: true, family, message: "가족 그룹 참여 완료!"})
+      else{
+        return res.status(200).json({success: false, message: "유효한 공유코드가 아닙니다."})
+      }
+      
+    })
+})
+
 
 // 회원가입 라우트
 router.post('/register', (req, res) => {

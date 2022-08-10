@@ -2,9 +2,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const familySchema = mongoose.Schema({
-    familyID:{ // 가족 ID
-        type: Number
-    },
     familyCode: {  // 가족 그룹 초대 코드
         type: String
     },

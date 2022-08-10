@@ -9,7 +9,7 @@ const WalkReviewSchema = mongoose.Schema({
         type: Boolean
     },
     record: { // 경로 기록
-        //type 뭘로해..? Image?
+        type: String
     },
     time: { // 소요시간
         //type: TimeRanges
@@ -19,9 +19,6 @@ const WalkReviewSchema = mongoose.Schema({
     },
     distance:{// 거리
       type: Number
-    },
-    picture:{ // 사진
-      //type: Image
     },
     content: {
       type: String
