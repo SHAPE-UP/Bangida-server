@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { User } = require('../models/User');
-const { Family } = require('../models/Family')
+const { Family } = require('../models/Family');
 const { auth } = require("../middleware/auth");
 
 // 가족 그룹 생성
@@ -91,7 +91,7 @@ router.post('/login', (req, res) => {
         // 쿠키에 저장하기: cookie-parser 라이브러리
         res.cookie("x_auth", user.token) // x_auth 변수에 토큰 저장됨
         .status(200)
-        .json({ loginSuccess: true, userId: user._id })
+        .json({ loginSuccess: true, userId: user._id, userName: user.name })
 
       })
     })
@@ -125,6 +125,36 @@ router.get('/logout', auth, (req, res) => {
     if(err) return res.json({ success: false, err });
     return res.status(200).send({
       success: true
+    })
+  })
+})
+
+// ****성향 점검 테스트 완료했을 때 호출
+// req: user_id
+/*
+router.put("/completeTest", (req,res) => {
+  User.updateOne({ _id: req.body._id }, {$set: {tested: true}})
+  .exec(
+    (err, testInfo) =>{
+      if(err) return res.json({success:false, err})
+      return res.status(200).json({
+        success:true,
+        testInfo,
+        message: "성향 점검 테스트 완료"
+      })
+    }
+  )
+})*/
+// ****성향 점검 테스트 완료했을 때 호출
+// req: user_id
+router.put("/completeTest", (req,res) => {
+  User.updateOne({ _id: req.body._id }, {$set: {tested: true}}, 
+    (err, testInfo) =>{
+    if(err) return res.json({success:false, err})
+    return res.status(200).json({
+      success:true,
+      testInfo,
+      message: "성향 점검 테스트 완료"
     })
   })
 })

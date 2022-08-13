@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const walkplaceSchema = mongoose.Schema({ 
+const WalkplaceSchema = mongoose.Schema({ 
     familyID:{ // 가족 ID
         type: Schema.Types.ObjectId, ref: 'Family'
     },
@@ -14,9 +14,8 @@ const walkplaceSchema = mongoose.Schema({
     longitude: { // 경도
       type: Number
   },
-  
 })
 
-const walkPlace = mongoose.model('walkPlace', walkplaceSchema)
+const Walkplace = mongoose.model('Walkplace', WalkplaceSchema)
 
-module.exports = { walkPlace }
+module.exports = { Walkplace }
