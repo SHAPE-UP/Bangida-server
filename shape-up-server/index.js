@@ -4,10 +4,6 @@ const port = 5000 // 백 서버 포트 설정
 const config = require('./config/key')
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser'); // 로그인 토큰을 쿠키에 저장하기
-const { auth } = require('./middleware/auth'); // auth
-const { User } = require("./models/User"); // 유저 모델 가져오기 (회원가입을 위함)
-const { Pet } = require('./models/Pet'); // 반려견 모델
-const { Todo } = require('./models/Todo'); //Todo모델
 
 // application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended: true})); // 바디파서가 클라이언트에서 오는 정보를 분석해서 가져올 수 있도록

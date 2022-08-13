@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const WalkReviewSchema = mongoose.Schema({
+const WalkreviewSchema = mongoose.Schema({
     familyID: {  // 가족 ID
         type: Schema.Types.ObjectId, ref: 'Family'
     },
@@ -25,6 +25,6 @@ const WalkReviewSchema = mongoose.Schema({
     }
 }, {timestamps: true})
 
-const WalkReview = mongoose.model('WalkReview', WalkReviewSchema)
+const Walkreview = mongoose.model('Walkreview', WalkreviewSchema)
 
-module.exports = { WalkReview }
+module.exports = { Walkreview }
