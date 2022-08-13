@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { User } = require('../models/User');
-const { Family } = require('../models/Family')
+const { Family } = require('../models/Family');
 const { auth } = require("../middleware/auth");
 
 // 가족 그룹 생성
@@ -91,7 +91,7 @@ router.post('/login', (req, res) => {
         // 쿠키에 저장하기: cookie-parser 라이브러리
         res.cookie("x_auth", user.token) // x_auth 변수에 토큰 저장됨
         .status(200)
-        .json({ loginSuccess: true, userId: user._id })
+        .json({ loginSuccess: true, userId: user._id, userName: user.name })
 
       })
     })
