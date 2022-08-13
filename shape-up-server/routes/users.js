@@ -129,5 +129,35 @@ router.get('/logout', auth, (req, res) => {
   })
 })
 
+// ****성향 점검 테스트 완료했을 때 호출
+// req: user_id
+/*
+router.put("/completeTest", (req,res) => {
+  User.updateOne({ _id: req.body._id }, {$set: {tested: true}})
+  .exec(
+    (err, testInfo) =>{
+      if(err) return res.json({success:false, err})
+      return res.status(200).json({
+        success:true,
+        testInfo,
+        message: "성향 점검 테스트 완료"
+      })
+    }
+  )
+})*/
+// ****성향 점검 테스트 완료했을 때 호출
+// req: user_id
+router.put("/completeTest", (req,res) => {
+  User.updateOne({ _id: req.body._id }, {$set: {tested: true}}, 
+    (err, testInfo) =>{
+    if(err) return res.json({success:false, err})
+    return res.status(200).json({
+      success:true,
+      testInfo,
+      message: "성향 점검 테스트 완료"
+    })
+  })
+})
+
 
 module.exports = router;
