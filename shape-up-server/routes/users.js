@@ -26,25 +26,35 @@ router.post("/addFamily", (req, res)=>{
 
 })
 
-
 // 가족 그룹 참여
 // req: user _id, familyCode
 router.post("/joinFamily", (req, res) => {
   let familyCode = req.body.familyCode
-  console.log(familyCode)
-  console.log(req.body.userId)
+  let userEmail = req.body.email
   
-  Family.findOneAndUpdate({familyCode: familyCode}, {$addToSet: {userGroup: req.body.userId}})
+User.find({email: userEmail}) 
+.exec((err, user) => {
+  if(err) 
+    return res.status(400).json({success: false, user})
+  if(user){
+    
+    Family.findOneAndUpdate({familyCode: familyCode},{$addToSet: {userGroup: user[0]._id}})
     .exec((err, family) => {
       if(err) 
         return res.status(400).json({success: false, family})
-      if(family) // 유효한 공유 코드인지 확인
-        return res.status(200).json({success: true, family, message: "가족 그룹 참여 완료!"})
-      else{
+      if(family){ // 유효한 공유 코드인지 확인
+        return res.status(200).json({success: true, message: "가족 그룹 참여 완료!"})
+      } 
+      else{ // 유효한 공유코드가 아닐 때
         return res.status(200).json({success: false, message: "유효한 공유코드가 아닙니다."})
       }
-      
     })
+  } 
+  else{
+    return res.status(200).json({success: false, message: "유효한 이메일이 아닙니다."})
+  }
+})
+
 })
 
 
@@ -111,7 +121,7 @@ router.get('/auth', auth, (req, res) => {
 })
 
 
-router.post('/logout', auth, (req, res) => {
+router.get('/logout', auth, (req, res) => {
 
   User.findOneAndUpdate({ userID: req.user.userID},
     { token: "" },
@@ -123,7 +133,7 @@ router.post('/logout', auth, (req, res) => {
   })
 })
 
-// ****성향 점검 테스트 완료했을 때 호출
+// 성향 점검 테스트 완료했을 때 호출
 // req: user_id
 router.put("/completeTest", (req,res) => {
   User.updateOne({ _id: req.body.userId }, {$set: {tested: true}}, 
@@ -131,7 +141,6 @@ router.put("/completeTest", (req,res) => {
     if(err) return res.json({success:false, err})
     return res.status(200).json({
       success:true,
-      testInfo,
       message: "성향 점검 테스트 완료"
     })
   })
