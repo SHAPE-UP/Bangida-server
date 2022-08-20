@@ -4,6 +4,22 @@ const { User } = require('../models/User');
 const { Family } = require('../models/Family');
 const { auth } = require("../middleware/auth");
 
+// familyID 반환
+router.post("/getFamilyID", (req, res)=>{
+  let userID = req.body._id
+  // data 등록
+  User.find({_id: userID}) 
+  .exec((err, user) => {
+    if(err) return res.json({success: false, err})
+    if(userID) return res.status(200).json({
+      success: true,
+      message: "familyID를 반환했습니다.",
+      user
+    })
+  })
+
+})
+
 // 가족 그룹 생성
 // req: user _id
 router.post("/addFamily", (req, res)=>{
@@ -17,11 +33,15 @@ router.post("/addFamily", (req, res)=>{
   family.userGroup.push(req.body.userID)
 
   // data 등록
-  family.save((err, familyInfo) => {
+  family.save((err, family) => {
     if(err) return res.json({success: false, err})
-    return res.status(200).json({
-      success: true
-    })
+    if(family){
+      User.findOneAndUpdate({_id: req.body.userID},{$set: {familyID: family._id}})
+      .exec((err, update) =>{
+        if(err) return res.status(400).json({success: false, update})
+        if(update) return res.status(200).json({success: true, message: "가족 그룹 생성 완료!", familyID: family._id})
+      })
+    }
   })
 
 })
@@ -37,13 +57,19 @@ User.find({email: userEmail})
   if(err) 
     return res.status(400).json({success: false, user})
   if(user){
-    
     Family.findOneAndUpdate({familyCode: familyCode},{$addToSet: {userGroup: user[0]._id}})
     .exec((err, family) => {
       if(err) 
         return res.status(400).json({success: false, family})
       if(family){ // 유효한 공유 코드인지 확인
-        return res.status(200).json({success: true, message: "가족 그룹 참여 완료!"})
+        //User에 값을 넣어준다.
+        console.log(family._id)
+        User.findOneAndUpdate({email: userEmail},{$set: {familyID: family._id}})
+        .exec((err, update) =>{
+          if(err) 
+            return res.status(400).json({success: false, update})
+            return res.status(200).json({success: true, message: "가족 그룹 참여 완료!", familyID: family._id})
+        })
       } 
       else{ // 유효한 공유코드가 아닐 때
         return res.status(200).json({success: false, message: "유효한 공유코드가 아닙니다."})
@@ -100,7 +126,7 @@ router.post('/login', (req, res) => {
         // 쿠키에 저장하기: cookie-parser 라이브러리
         res.cookie("x_auth", user.token) // x_auth 변수에 토큰 저장됨
         .status(200)
-        .json({ loginSuccess: true, userId: user.userID, userName: user.name })
+        .json({ loginSuccess: true, userID: user._id, userName: user.name })
 
       })
     })

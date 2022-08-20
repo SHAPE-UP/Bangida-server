@@ -17,6 +17,9 @@ const userSchema = mongoose.Schema({
         type: String,
         minlength: 5
     },
+    familyID:{
+        type: String
+    },
     familyCode: {
         type: String
     },
