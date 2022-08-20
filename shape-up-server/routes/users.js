@@ -88,47 +88,9 @@ router.post('/login', (req, res) => {
     //  이메일이 있다면 비밀번호가 맞는 비밀번호인지 확인
     // comparePassword() 메소드는 User 스키마에 만든다
     user.comparePassword(req.body.password, (err, isMatch) => {
-        if(!isMatch) 
-        return res.json({ loginSuccess: false, message: "비밀번호가 틀렸습니다."})
-    
-      // 비밀번호까지 맞다면 토큰을 생성하기
-      user.generateToken((err, user) => {
-        if(err) return res.status(400).send(err);
-        
-        // 매개변수 user로 받아온 토큰을 저장한다.
-        // 어디에? (개발자 임의로) 쿠키, 로컬스토리지, 세션스토리지 등등...
-        // 쿠키에 저장하기: cookie-parser 라이브러리
-        res.cookie("x_auth", user.token) // x_auth 변수에 토큰 저장됨
-        .status(200)
-        .json({ loginSuccess: true, userId: user.userID, userName: user.name })
-
-      })
-    })
-  })
-})
-
-
-router.get('/auth', auth, (req, res) => {
-
-  // 미들웨어를 통과해 여기까지 왔다는 얘기는 Authentication이 true라는 말.
-  // 미들웨어에서 req.user = user 해줘서 여기서 쓸 수 있음
-  res.status(200).json({
-    _id: req.user._id,
-    email: req.user.email,
-    name: req.user.name,
-    image: req.user.image
-  })
-})
-
-
-router.get('/logout', auth, (req, res) => {
-
-  User.findOneAndUpdate({ userID: req.user.userID},
-    { token: "" },
-    (err, user) => {
-    if(err) return res.json({ success: false, err });
-    return res.status(200).send({
-      success: true
+        if(!isMatch) return res.json({ loginSuccess: false, message: "비밀번호가 틀렸습니다."})
+        // 토큰 생성 과정 삭제
+        res.status(200).json({ loginSuccess: true, userID: user._id, userName: user.name, familyID: user.familyID })
     })
   })
 })
@@ -136,7 +98,7 @@ router.get('/logout', auth, (req, res) => {
 // 성향 점검 테스트 완료했을 때 호출
 // req: user_id
 router.put("/completeTest", (req,res) => {
-  User.updateOne({ _id: req.body.userId }, {$set: {tested: true}}, 
+  User.updateOne({ _id: req.body.userID }, {$set: {tested: true}}, 
     (err, testInfo) =>{
     if(err) return res.json({success:false, err})
     return res.status(200).json({

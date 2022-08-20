@@ -27,6 +27,7 @@ router.post("/registerTodo", (req, res) => {
 });
 
 // Todo 수정: put
+// Todo항목의 내용이 변경되거나 done이 true 또는 false로 변경되는 경우 사용
 router.put("/editTodo", (req,res) => {
     let roleItem = req.body.todorole
     Todo.findOneAndUpdate({ _id: req.body._id }, {$push: {todorole: roleItem}})
