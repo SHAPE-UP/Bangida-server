@@ -5,7 +5,7 @@ const { Walkreview } = require('../models/Walkreview');
 
 // 최근(date) 산책 리뷰 목록 불러오기: post
 router.post("/getReview", (req, res) => {
-  Walkreview.find({ familyId: req.body.familyId })
+  Walkreview.find({ familyId: req.body.familyID })
   .sort({createdAt: -1}) 
   .limit(5)
   .exec((err, review)=>{

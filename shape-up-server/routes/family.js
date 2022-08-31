@@ -16,9 +16,9 @@ router.post("/getFamily", (req, res) => {
 
 // 반려견 입양시 PetID push
 router.put("/additionPetId", (req,res) => { 
-  const petn = new Pet()
+  const newpet = new Pet()
   
-  petn.save((err, petInfo) => {
+  newpet.save((err, petInfo) => {
     Family.findOneAndUpdate({ _id: req.body._id }, {pet: petInfo.id})
     .exec(
       (err, todoInfo) => {

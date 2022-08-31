@@ -16,7 +16,7 @@ router.post('/addPlace', (req, res) =>{
 
 // 장소 마커 불러오기: post
 router.post("/getPlace", (req, res) => {
-  Walkplace.find({ familyId: req.body.familyId })
+  Walkplace.find({ familyID: req.body.familyID })
   .exec((err, place)=>{
     if(err) return res.status(400).send(err);
     return res.status(200).json({success: true, place})

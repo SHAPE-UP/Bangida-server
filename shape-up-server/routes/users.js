@@ -22,16 +22,17 @@ router.post("/getUserInfo", (req, res)=>{
 // 가족 그룹 생성
 // req: user _id
 router.post("/addFamily", (req, res)=>{
-  // 요청: userID
+  // 새 가족 생성
   const family = new Family()
 
+  /* 가족 공유 코드 */
   // 랜덤 코드 생성하기
   const randomString = Math.random().toString(36).slice(2)
   // 값 넣기
   family.familyCode = randomString
   family.userGroup.push(req.body.userID)
 
-  // data 등록
+  // DB에 저장
   family.save((err, family) => {
     if(err) return res.json({success: false, err})
     if(family){
