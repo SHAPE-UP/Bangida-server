@@ -6,9 +6,13 @@ const { Todo } = require('../models/Todo');
 // Todo 목록 불러오기: post
 // req.body: 가족ID, 날짜
 router.post("/getTodo", (req, res) => {
-    let date = req.body.date // 몽고디비 형식으로 변환 필요
+
+    let date = req.body.date // YYYY-MM-DD 형식
+    let date_str = date+" 12:00:00";
+    var date_timestamp = new Date(date_str);
+
     Todo.find({ familyID: req.body.familyID,
-    //    date: date
+        date: date_timestamp
     })
     .exec((err, todoInfo) => {
         if (err) return res.status(400).send(err);
@@ -22,10 +26,14 @@ router.post("/registerTodo", (req, res) => {
     let todorole = req.body.todorole ? req.body.todorole : null // 기본값 없음
     let todoref = req.body.todoref ? req.body.todoref : 0 // 기본값 0
     let todotime = req.body.todotime ? req.body.todotime : null // 기본값 없음
-    let date = req.body.date // 몽고디비 형식으로 변환 필요
+    
+    let date = req.body.date // YYYY-MM-DD 형식
+    let date_str = date+" 12:00:00";
+    var date_timestamp = new Date(date_str);
+
     let newtodo = new Todo({
         familyID: req.body.familyID,
-        //date: date,
+        date: date_timestamp,
         todowork: req.body.todowork,
         todorole: todorole,
         todotime: todotime,
@@ -44,11 +52,15 @@ router.post("/registerTodo", (req, res) => {
 // Todo 수정: put
 // Todo항목의 내용 변경 시
 router.put("/editTodo", (req,res) => {
-    let date = req.body.date // 몽고디비 형식으로 변환 필요
-    let todotime = req.body.todotime // 몽고디비 형식으로 변환 필요
+    let date = req.body.date // YYYY-MM-DD 형식
+    let date_str = date+" 12:00:00";
+    var date_timestamp = new Date(date_str);
+
+    let todotime = req.body.todotime // 아직...
+
     Todo.updateOne({ _id: req.body._id }, 
         {$set: {
-            //date: date
+            date: date_timestamp,
             todowork: req.body.todowork,
             todorole: req.body.todorole,
             todoref: req.body.todoref,

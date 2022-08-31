@@ -6,9 +6,13 @@ const { Todo } = require('../models/Todo');
 // 날짜별 Diary 불러오기: post
 // req.body: 가족ID, 날짜
 router.post("/getDiary", (req, res) => {
-    let date = req.body.date // 몽고디비 형식으로 변환 필요
+    
+    let date = req.body.date // YYYY-MM-DD 형식
+    let date_str = date+" 12:00:00";
+    var date_timestamp = new Date(date_str);
+
     Diary.findOne({ familyID: req.body.familyID,
-    //    date: date 
+        date: date_timestamp 
     })
     .exec((err, diary) => {
             if(err) return res.status(400).json({ success: false, err })
@@ -16,6 +20,7 @@ router.post("/getDiary", (req, res) => {
         }
     )
 })
+
 
 
 module.exports = router;

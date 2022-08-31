@@ -9,7 +9,7 @@ const todoSchema = mongoose.Schema({
     },
     date: {  // 날짜
         type: Date,
-        //required: true
+        required: true
     },
     todowork: { // 할 일 내용 (텍스트)
         type: String,
