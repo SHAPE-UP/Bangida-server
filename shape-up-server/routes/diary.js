@@ -3,17 +3,19 @@ const router = express.Router();
 const { Diary } = require('../models/Diary');
 const { Todo } = require('../models/Todo');
 
-// 날짜별 투두리스트 불러오기: post
+// 날짜별 Diary 불러오기: post
 // req.body: 가족ID, 날짜
+router.post("/getDiary", (req, res) => {
+    let date = req.body.date // 몽고디비 형식으로 변환 필요
+    Diary.findOne({ familyID: req.body.familyID,
+    //    date: date 
+    })
+    .exec((err, diary) => {
+            if(err) return res.status(400).json({ success: false, err })
+            return res.status(200).json({ success: true, diary })
+        }
+    )
+})
 
-// todo 등록: post
-
-// todo 내용 수정: post
-
-// todo 삭제: delete
-
-// todo 알림 설정: post
-
-// todo 완료(할일 -> 할일 완료): post
 
 module.exports = router;

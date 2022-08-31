@@ -5,7 +5,7 @@ const { Family } = require('../models/Family');
 const { auth } = require("../middleware/auth");
 
 // familyID 반환
-router.post("/getFamilyID", (req, res)=>{
+router.post("/getUserInfo", (req, res)=>{
   let userID = req.body._id
   // data 등록
   User.find({_id: userID}) 
@@ -13,7 +13,6 @@ router.post("/getFamilyID", (req, res)=>{
     if(err) return res.json({success: false, err})
     if(userID) return res.status(200).json({
       success: true,
-      message: "familyID를 반환했습니다.",
       user
     })
   })
