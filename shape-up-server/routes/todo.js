@@ -55,8 +55,7 @@ router.put("/editTodo", (req,res) => {
     let date = req.body.date // YYYY-MM-DD 형식
     let date_str = date+" 12:00:00";
     var date_timestamp = new Date(date_str);
-
-    let todotime = req.body.todotime // 아직...
+    let todotime = req.body.todotime
 
     Todo.updateOne({ _id: req.body._id }, 
         {$set: {
@@ -64,7 +63,7 @@ router.put("/editTodo", (req,res) => {
             todowork: req.body.todowork,
             todorole: req.body.todorole,
             todoref: req.body.todoref,
-            //todotime: todotime
+            todotime: todotime
         }})
     .exec((err, todoInfo) => {
         if(err) return res.json({success:false, err})

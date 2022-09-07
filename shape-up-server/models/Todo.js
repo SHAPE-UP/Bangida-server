@@ -23,7 +23,7 @@ const todoSchema = mongoose.Schema({
         default: null
     },
     todotime: {  // 시간 설정 (푸시 알림)
-        type: Date,
+        type: String,
         default: null
     },
     todoref: {  // 관련 시뮬레이션 - 번호로 관리
