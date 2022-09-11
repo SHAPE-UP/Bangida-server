@@ -14,6 +14,7 @@ router.post("/getTodo", (req, res) => {
     Todo.find({ familyID: req.body.familyID,
         date: date_timestamp
     })
+    .populate("todorole", "name")
     .exec((err, todoInfo) => {
         if (err) return res.status(400).send(err);
         return res.status(200).send({ success: true, todoInfo });

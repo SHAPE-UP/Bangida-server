@@ -4,7 +4,7 @@ const { User } = require('../models/User');
 const { Family } = require('../models/Family');
 const { auth } = require("../middleware/auth");
 
-// familyID 반환
+// 유저 정보 (familyID 포함)
 router.post("/getUserInfo", (req, res)=>{
   let userID = req.body._id
   // data 등록
@@ -39,7 +39,7 @@ router.post("/addFamily", (req, res)=>{
       User.findOneAndUpdate({_id: req.body.userID},{$set: {familyID: family._id}})
       .exec((err, update) =>{
         if(err) return res.status(400).json({success: false, update})
-        if(update) return res.status(200).json({success: true, message: "가족 그룹 생성 완료!", familyID: family._id})
+        if(update) return res.status(200).json({success: true, message: "가족 그룹 생성 완료!", familyID: family._id, familyCode: family.familyCode})
       })
     }
   })

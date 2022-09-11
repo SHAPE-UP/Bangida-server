@@ -6,7 +6,7 @@ const router = express.Router();
 // 강아지 정보 불러오기(DB): post
 router.post("/getPet", (req, res) => {
     Family
-    .find({},{_id:0, userGroup:0})
+    .findOne({},{_id:0, userGroup:0})
     .populate("pet")
       .exec((err, family) => {
         if (err) return res.status(400).send(err);
