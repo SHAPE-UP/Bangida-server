@@ -3,14 +3,16 @@ const { Family } = require('../models/Family');
 const { Pet } = require('../models/Pet');
 const router = express.Router();
 
-// 강아지 정보 불러오기(DB): post
-router.post("/getPet", (req, res) => {
-    Family
-    .findOne({},{_id:0, userGroup:0})
-    .populate("pet")
-      .exec((err, family) => {
+// 강아지 정보 불러오기(DB): get
+router.get("/getPet/:petID", (req, res) => {
+  let petID = req.params.petID
+  console.log(petID)
+    //Family.findOne({_id: petID}, {id:0, userGroup: 0, familyCode: 0})
+    //.populate("pet")
+    Pet.findOne({"_id" : petID})
+      .exec((err, petInfo) => {        
         if (err) return res.status(400).send(err);
-        res.status(200).send({ success: true, family });
+        res.status(200).send({ success: true, petInfo });
       }); 
 });
   

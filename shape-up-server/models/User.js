@@ -29,13 +29,17 @@ const userSchema = mongoose.Schema({
         type: Boolean,
         default: false
     },
-    role:{ // 역할
-        type: String,
-        // 그룹원 or 그룹장
-    },
-    acheivement:{ 
-        type: String
-    },
+    achieve:[{
+        type: Boolean,
+        default: false
+    }],
+    // role:{ // 역할
+    //     type: String,
+    //     // 그룹원 or 그룹장
+    // },
+    // acheivement:{ 
+    //     type: String
+    // },
     propensityResult:{ // 성향 점검 결과
         type: String
     },
