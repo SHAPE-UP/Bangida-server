@@ -91,6 +91,11 @@ router.post('/register', (req, res) => {
     // 그것들을 데이터베이스에 넣어준다
 
     const user = new User(req.body) // json 객체가 들어 있음 (bodyparser 이용)
+    
+    // 업적 달성 관리 배열(achieve)을 생성. false로 초기화
+    const checked = Array.from({length: 14}, () => false);
+    console.log(checked)
+    user.achieve = checked
 
     user.save((err, userInfo) => {
         if(err) return res.json({ success: false, err })
@@ -117,14 +122,14 @@ router.post('/login', (req, res) => {
 
         if(!isMatch) return res.json({ loginSuccess: false, message: "비밀번호가 틀렸습니다."})
         // 토큰 생성 과정 삭제
-        res.status(200).json({ loginSuccess: true, userID: user._id, userName: user.name, familyID: user.familyID })
+        res.status(200).json({ loginSuccess: true, user })
 
     })
   })
 })
 
 // 성향 점검 테스트 완료했을 때 호출
-// req: user_id
+// req: userID
 router.put("/completeTest", (req,res) => {
   User.updateOne({ _id: req.body.userID }, {$set: {tested: true}}, 
     (err, testInfo) =>{
@@ -136,5 +141,28 @@ router.put("/completeTest", (req,res) => {
   })
 })
 
+// false -> true : put
+// req: position, params: userID
+router.put("/achieveCheck/:userID/:position", (req,res) => {
+  let userID = req.params.userID;
+  let position = req.params.position;
+
+  User.findOne({ _id: userID }, (err, userInfo) =>{
+    if(err) return res.json({success:false, message: "유저를 찾지 못했습니다.",err})
+    if(userInfo){
+      // 업적 달성: true로 설정
+      userInfo.achieve[position] = true
+
+      User.updateOne({ _id: userID }, {$set: {achieve : userInfo.achieve}},
+        (err, achieveInfo) => {
+          if(err) return res.json({success:false, message: "업적 달성 업데이트를 실패했습니다.", err})
+          return res.status(200).json({
+            success:true,
+            message: "업적 달성 업데이트 완료", achieveInfo
+          })
+        })
+    }
+  })
+})
 
 module.exports = router;
