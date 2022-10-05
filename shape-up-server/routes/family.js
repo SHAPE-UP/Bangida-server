@@ -49,7 +49,11 @@ router.put("/additionPetID", (req,res) => {
 router.get("/getPetID/:familyID", (req, res) => {
   let familyID = req.params.familyID
   console.log(familyID)
+<<<<<<< HEAD
   Family.findOne({_id : familyID})
+=======
+  Family.findOne({ _id : familyID })
+>>>>>>> 28fa0759801a7397f99004a81b3334881562bf23
   .exec((err, familyInfo) =>{
     if(err) return res.status(400).json({success: false})
     return res.status(200).json({

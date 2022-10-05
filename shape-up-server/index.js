@@ -33,6 +33,7 @@ app.use('/api/walkreview', require('./routes/walkreview'));
 app.use('/api/comment', require('./routes/comment'));
 app.use('/api/walkplace', require('./routes/walkplace'));
 app.use('/api/todo', require('./routes/todo'));
+app.use('/api/insert', require('./routes/insert'));
 //app.use('/api/simulation', require('./routes/simulation'));
 
 app.listen(port, () => { // 포트(port)에서 실행
